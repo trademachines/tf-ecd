@@ -4,10 +4,12 @@ resource "aws_cloudwatch_event_rule" "events" {
   event_pattern = <<PATTERN
       {
         "source": [
+          "tm.ecd",
           "tm.ecdc",
           "aws.ecs"
         ],
         "detail-type": [
+          "ECD Service Deployment Started",
           "ECDC Service Deployment Started",
           "ECS Task State Change"
         ]
