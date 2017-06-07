@@ -29,13 +29,13 @@ resource "aws_lambda_function" "ecd" {
   function_name    = "ecd"
   description      = "Deploys services to AWS ECD"
   handler          = "index.handle"
-  runtime          = "nodejs4.3"
+  runtime          = "nodejs6.10"
   timeout          = "10"
   vpc_config       = []
   filename         = "${path.module}/lambda-empty.zip"
   source_code_hash = ""
 
   lifecycle {
-    ignore_changes = ["timeout", "handler", "description"]
+    ignore_changes = ["timeout", "handler", "description", "runtime"]
   }
 }
