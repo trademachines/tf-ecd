@@ -1,4 +1,4 @@
-variable "s3_prefix" {}
+variable "s3_bucket_name" {}
 variable "kms_key_admins" {
   type = "list"
   default = []

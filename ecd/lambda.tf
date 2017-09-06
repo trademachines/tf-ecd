@@ -35,6 +35,12 @@ resource "aws_lambda_function" "ecd" {
   filename         = "${path.module}/lambda-empty.zip"
   source_code_hash = ""
 
+  environment {
+    variables {
+      BUCKET = "${var.s3_bucket_name}"
+    }
+  }
+
   lifecycle {
     ignore_changes = ["timeout", "handler", "description", "runtime"]
   }
