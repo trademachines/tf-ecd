@@ -1,21 +1,17 @@
-resource "aws_iam_role" "ecd" {
-  name = "lambda-ecd"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
+data "aws_iam_policy_document" "lambda_role_policy" {
+  statement {
+    actions = [ "sts:AssumeRole" ]
+    principals {
+      type = "Service"
+      identifiers = [ "lambda.amazonaws.com" ]
     }
-  ]
+    effect = "Allow"
+  }
 }
-EOF
+
+resource "aws_iam_role" "ecd" {
+  name               = "lambda-ecd"
+  assume_role_policy = "${data.aws_iam_policy_document.lambda_role_policy.json}"
 }
 
 resource "aws_iam_role_policy_attachment" "ecd" {
@@ -42,6 +38,6 @@ resource "aws_lambda_function" "ecd" {
   }
 
   lifecycle {
-    ignore_changes = ["timeout", "handler", "description", "runtime"]
+    ignore_changes = ["timeout", "handler", "description", "runtime", "source_code_hash"]
   }
 }
