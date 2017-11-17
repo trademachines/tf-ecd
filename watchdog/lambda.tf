@@ -36,6 +36,6 @@ resource "aws_lambda_function" "watchdog" {
   source_code_hash = ""
 
   lifecycle {
-    ignore_changes = ["timeout", "handler", "description"]
+    ignore_changes = ["timeout", "handler", "description", "source_code_hash"]
   }
 }
